@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React dhidi
+          Learn React sdgu
         </a>
       </header>
     </div>
