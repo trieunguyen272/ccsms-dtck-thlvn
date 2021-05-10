@@ -1,0 +1,40 @@
+.fa-user, .fa-times {
+    margin-right: 5px;
+    margin-left: 20px;
+}
+
+.fa-search {
+    margin-right: 80px;
+}
+
+.input-group.md-form.form-sm.form-1 input {
+    border: 1px solid white;
+    border-top-right-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+    background-color: white;
+  }
+
+#basic-text1 {
+    width: 40px;
+    background-color: white;
+    border: 1px solid white;
+    text-align: center;
+}
+.input-group.md-form.form-sm.form-1.pl-0 {
+    margin-right: 100px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.navbar.navbar-fixed-topnavbar{
+    background-color: #b3fff0;
+}
+a {
+    color: black;
+}
+.lbl {
+    color: rgb(255, 0, 0);
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15.3px;
+}
