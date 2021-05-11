@@ -1,11 +1,11 @@
-import React, { Component, useState } from "react";
-import Header from "../../User/Header/header";
-import Navbarmenu from "../../User/Nav/nav";
-import Footer from "../../User/Footer/footer";
+import React, { Component } from "react";
+import Header from "../Header/header";
+import Navbarmenu from "../Nav/nav";
+import Footer from "../Footer/footer";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 
-class Product extends Component {
+class Cart extends Component {
   // const [state, setState] = useState(0);
   // constructor(){
   // super();
@@ -44,8 +44,8 @@ class Product extends Component {
     return (
       <Router>
         <div className="App">
-          <Header />
-          <Navbarmenu />
+          {/* <Header />
+          <Navbarmenu /> */}
 
           <Card style={{ width: "18rem" }}>
             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
@@ -61,4 +61,4 @@ class Product extends Component {
     );
   }
 }
-export default Product;
+export default Cart;

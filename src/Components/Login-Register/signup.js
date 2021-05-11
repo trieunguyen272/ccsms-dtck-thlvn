@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 //import { Redirect } from "react-router-dom";
 import { signup } from "../../services/postDataRegister";
-import { Nav } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+// import { Nav } from "react-bootstrap";
+// import { Redirect } from "react-router-dom";
 class Signup extends Component {
   constructor(props) {
     super(props);

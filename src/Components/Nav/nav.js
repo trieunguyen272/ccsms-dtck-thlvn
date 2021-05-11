@@ -1,25 +1,42 @@
 import React, { useState, useEffect } from "react";
-import categoriesApi from "../../services/categoriesApi";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavDropdown } from "react-bootstrap";
 import "./nav.css";
 import { MDBCol, MDBIcon } from "mdbreact";
 import { LinkContainer } from "react-router-bootstrap";
 import categorytApi from "../../services/categoriesApi";
+import { useHistory } from "react-router-dom";
+import CategoryItem from "../Categories/categoryItem";
 
-function Navbarmenu() {
-  
+Navbarmenu.defaultProps = {
+  categoryt: {},
+  handleToProductClick: null,
+};
+
+function Navbarmenu(props) {
+  const { categoryt, onToProductClick } = props;
+
+  const handleToProductClick = () => {
+    if (onToProductClick) onToProductClick(categoryt);
+  };
   const [categoryList, setCategoryList] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const getAllCategoryList = async () => {
       const response = await categorytApi.getAll();
-      setCategoryList(response);a
+      setCategoryList(response);
       console.log(response);
     };
 
     getAllCategoryList();
   }, []);
+
+  const showProduct = (categoryt) => {
+    const productUrl = `/product-categories/${categoryt.id}`;
+    history.push(productUrl);
+  };
+
   return (
     <div className="nav-menu">
       <Navbar
@@ -37,12 +54,13 @@ function Navbarmenu() {
               title="DANH MỤC SẢN PHẨM"
               id="collasible-nav-dropdown"
             >
-              {categoryList.map((item) => (
-                <NavDropdown.Item key={item.id} name="name">
-                  {item.name}
-                </NavDropdown.Item>
+              {categoryList.map((category) => (
+                <CategoryItem
+                  key={category.id}
+                  category={category}
+                  onToProductClick={showProduct}
+                />
               ))}
-              
             </NavDropdown>
             <LinkContainer to="/">
               <Nav.Link className="lbl">TRANG CHỦ</Nav.Link>

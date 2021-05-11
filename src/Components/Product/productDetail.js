@@ -1,27 +1,35 @@
 import productApi from "../../services/productApi";
-import { Card, Button, Carousel, Row, Col } from "react-bootstrap";
+// import { Card, Button, Carousel, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Card } from "react-bootstrap";
 
 function ProductDetail() {
-  const [productList, setProductList] = useState([]);
+  const { productId } = useParams();
+  const [productDetail, setProductDetail] = useState([]);
+
   useEffect(() => {
-    const getProductList = async () => {
-      const response = await productApi.get();
-      setProductList(response);
+    const getProductDetail = async () => {
+      const response = await productApi.get(productId);
+      setProductDetail(response);
       console.log(response);
     };
-    getProductList();
+    getProductDetail();
   }, []);
+
   return (
-    // <Card style={{ width: "18rem" }}>
-    //   <Card.Body>
-    //     <Card.Img variant="top" src={item.imageUrl} />
-    //     <Card.Title name="name">{item.name}</Card.Title>
-    //     <Card.Text name="price">Đơn giá:{item.price}</Card.Text>
-    //     <Card.Text name="quantity">Số lượng: {item.quantity}</Card.Text>
-    //   </Card.Body>
-    // </Card>
-    <div></div>
+    <div>
+      <Card style={{ width: "18rem" }}>
+        <Card.Body>
+          <Card.Img variant="top" src={productDetail.imageUrl} />
+          <Card.Title name="name">{productDetail.name}</Card.Title>
+          <Card.Text name="price">Đơn giá:{productDetail.price}</Card.Text>
+          <Card.Text name="quantity">
+            Số lượng: {productDetail.quantity}
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    </div>
   );
 }
 export default ProductDetail;

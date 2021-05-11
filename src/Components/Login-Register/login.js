@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { login } from "../../services/postData";
-import { Nav } from "react-bootstrap";
+// import { Nav } from "react-bootstrap";
 //import {Signup} from './signup';
 import "./login.css";
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from "mdbreact";
+// import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from "mdbreact";
 
 class Login extends Component {
   constructor() {
