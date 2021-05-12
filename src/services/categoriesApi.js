@@ -1,5 +1,6 @@
 import axiosClient from "./axiosClient";
 
+//phương thức
 const categorytApi = {
   getAll: () => {
     const url = "/categories";
