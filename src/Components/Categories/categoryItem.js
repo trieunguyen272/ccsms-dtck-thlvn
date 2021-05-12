@@ -17,7 +17,11 @@ function CategoryItem(props) {
   const { category, onToProductClick } = props;
 
   const handleToProductClick = () => {
-    if (onToProductClick) onToProductClick(category);
+    if (onToProductClick) 
+    {
+      onToProductClick(category);
+      
+    };
     //window.location.reload();
   };
 

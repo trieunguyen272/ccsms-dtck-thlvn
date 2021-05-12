@@ -46,7 +46,7 @@ function Navbarmenu() {
 
             <Nav.Link href="/login" className="lbl">
               <i class="fa fa-user" aria-hidden="true"></i>
-              NGUYỄN A
+                
             </Nav.Link>
             <Nav.Link eventKey={2} href="#memes" className="lbl">
               <i class="fa fa-times" aria-hidden="true"></i>

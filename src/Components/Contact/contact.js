@@ -36,8 +36,6 @@ function Contact() {
           loading="lazy"
         ></iframe>
       </div>
-
-      <Footer />
     </div>
   );
 }

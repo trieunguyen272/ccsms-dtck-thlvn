@@ -25,23 +25,21 @@ function App() {
       <BrowserRouter>
         <Header />
         <Navbarmenu />
-
         <Switch>
           <Redirect exact from="/" to="/home" />
-
-          <Route path="/home" component={Home} />
-          <Route path="/pay" component={Pay} />
-          <Route path="/delivery-policy" component={Delivery} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/product-load" component={Cart} />
+          <Route path="/home" exact component={Home} />
+          <Route path="/pay" exact component={Pay} />
+          <Route path="/delivery-policy" exact component={Delivery} />
+          <Route path="/contact" exact component={Contact} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/signup" exact component={Signup} />
+          <Route path="/product-load" exact component={Cart} />
           <Route
-            path={`/product-detail/:productId`}
+            path={`/product-detail/:productId`} exact
             component={productDetail}
           />
           <Route
-            path={`/product-categories/:categorytId`}
+            path={`/product-categories/:categorytId`} exact
             component={productCategoriesList}
           />
         </Switch>

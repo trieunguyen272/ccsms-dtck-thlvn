@@ -2,15 +2,16 @@ import React from "react";
 import bank1 from "../../public/image/vietcombank.PNG";
 import bank2 from "../../public/image/techcombank.PNG";
 import bank3 from "../../public/image/eximbank.PNG";
-import './pay.css';
+import "./pay.css";
 
 function Pay() {
   return (
     <div className="pay-home">
       <div className="pay-item">
         <h5>
-        <b>Lưu ý: Nội dung chuyển khoản quý khách vui lòng chỉ ghi: </b> Mã
+          <b>Lưu ý: Nội dung chuyển khoản quý khách vui lòng chỉ ghi: </b> Mã
           đơn hàng nếu có hoặc SDT + tên
+          <b>dugfofu</b>
         </h5>
       </div>
       <table border="1">
@@ -44,7 +45,6 @@ function Pay() {
                 <b>THÔNG TIN GIAO DỊCH BLUE CHIC Computer:</b>
               </h4>
               <h3>
-                {" "}
                 <b>Số tài khoản: </b> 19135510812021
               </h3>
               <h3>
@@ -65,7 +65,6 @@ function Pay() {
                 <b>THÔNG TIN GIAO DỊCH BLUE CHIC Computer:</b>
               </h4>
               <h3>
-                {" "}
                 <b>Số tài khoản: </b> 101514851026665
               </h3>
               <h3>

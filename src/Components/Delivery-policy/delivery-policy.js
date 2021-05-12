@@ -110,7 +110,6 @@ function Delivery() {
           đáp cụ thể.
         </h2>
       </div>
-      <Footer />
     </div>
   );
 }

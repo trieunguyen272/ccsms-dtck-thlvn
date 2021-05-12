@@ -18,13 +18,15 @@ class Login extends Component {
     this.onChange = this.onChange.bind(this);
   }
 
+  
+
   submitLogin = async () => {
+    let item = { userName, password };
     if (this.state.userName && this.state.password) {
       const response = await login(this.state);
       if (response.status === 200) {
-        console.log("hdhhs");
-        sessionStorage.setItem("userData", JSON.stringify(response.data.data));
-        //return <Redirect to={"/product-load"} />;
+        localStorage.setItem ('user-info', response.data)
+        //sessionStorage.setItem("userData", JSON.stringify(response.data.data));
         this.setState({ redirectToReferrer: true });
       } else if (response.status === 401) {
         alert(response.data.message);
@@ -36,6 +38,7 @@ class Login extends Component {
   }
   render() {
     if (this.state.redirectToReferrer) {
+      localStorage.getItem ('user-info');
       return <Redirect to={"/product-load"} />;
     }
     // if (sessionStorage.getItem("userData")) {

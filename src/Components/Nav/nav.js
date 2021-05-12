@@ -34,7 +34,14 @@ function Navbarmenu(props) {
 
   const showProduct = (categoryt) => {
     const productUrl = `/product-categories/${categoryt.id}`;
+
     history.push(productUrl);
+    
+    let currentPath = window.location.pathname;
+    history.replace(`/${categoryt.id}`);
+    setTimeout(() => {
+      history.replace(currentPath);
+    }, 0);
   };
 
   return (
