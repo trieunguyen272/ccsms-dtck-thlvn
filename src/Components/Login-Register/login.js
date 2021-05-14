@@ -23,9 +23,9 @@ class Login extends Component {
     if (this.state.userName && this.state.password) {
       const response = await login(this.state);
       if (response.status === 200) {
-        localStorage.setItem("user-info", response.data);
         //sessionStorage.setItem("userData", JSON.stringify(response.data.data));
         this.setState({ redirectToReferrer: true });
+        localStorage.setItem(response.data);
       } else if (response.status === 401) {
         alert(response.data.message);
       }
@@ -36,7 +36,6 @@ class Login extends Component {
   }
   render() {
     if (this.state.redirectToReferrer) {
-      localStorage.getItem("user-info");
       return <Redirect to={"/product-load"} />;
     }
     return (
@@ -44,7 +43,14 @@ class Login extends Component {
         <MDBRow>
           <MDBCol md="4">
             <img src={logo} alt="logo" className="img-header" />
-            <h1 style={{ fontSize: "1.1rem", marginLeft: "6rem", width: "300px", marginTop: "5px" }}>
+            <h1
+              style={{
+                fontSize: "1.1rem",
+                marginLeft: "6rem",
+                width: "300px",
+                marginTop: "5px",
+              }}
+            >
               BLUE CHIC Computer
             </h1>
           </MDBCol>

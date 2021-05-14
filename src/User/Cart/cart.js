@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import Header from "../Header/header";
-import Navbarmenu from "../Nav/nav";
-import Footer from "../Footer/footer";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 
@@ -40,13 +37,12 @@ class Cart extends Component {
   // if(sessionStorage.getItem('userData')){
   // return (<Redirect to={'/home'}/>)
   // }
+
   render() {
+    console.log(localStorage.getItem("userName"));
     return (
       <Router>
         <div className="App">
-          {/* <Header />
-          <Navbarmenu /> */}
-
           <Card style={{ width: "18rem" }}>
             {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
             <Card.Body>
@@ -55,7 +51,6 @@ class Cart extends Component {
               <Button variant="primary">Thêm vào giỏ hàng</Button>
             </Card.Body>
           </Card>
-          <Footer />
         </div>
       </Router>
     );
