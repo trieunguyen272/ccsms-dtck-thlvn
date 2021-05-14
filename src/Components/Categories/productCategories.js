@@ -1,17 +1,13 @@
 import categorytApi from "../../services/categoriesApi";
-import productApi from "../../services/productApi";
-// import { Card, Button, Carousel, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import ProductCard from "../Product/productCart";
-import Product from "../Product/product";
 import { Col, Row } from "react-bootstrap";
-import { Button, Card } from "react-bootstrap";
 
 function ProductCategoriesList() {
   const { categorytId } = useParams();
   const [productCategoriesList, setProductCategoriesList] = useState([]);
-  const [productCategories, setProductCategories] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const getProductCategoriesList = async () => {
@@ -22,13 +18,16 @@ function ProductCategoriesList() {
     getProductCategoriesList();
   }, []);
 
+  const showDetail = (product) => {
+    const detailUrl = `/product-detail/${product.id}`;
+    history.push(detailUrl);
+  };
 
   return (
     <Row>
-      
-        {productCategoriesList.map((product) => (
-        <Col key={product.id} lg="3">
-          <ProductCard product={product} />
+      {productCategoriesList.map((product) => (
+        <Col key={product.id} lg="">
+          <ProductCard product={product} onToDetailClick={showDetail} />
         </Col>
       ))}
     </Row>

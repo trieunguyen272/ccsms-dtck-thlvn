@@ -36,7 +36,7 @@ function Navbarmenu(props) {
     const productUrl = `/product-categories/${categoryt.id}`;
 
     history.push(productUrl);
-    
+
     let currentPath = window.location.pathname;
     history.replace(`/${categoryt.id}`);
     setTimeout(() => {
@@ -116,6 +116,5 @@ function Navbarmenu(props) {
     </div>
   );
 }
-//}
 
 export default Navbarmenu;

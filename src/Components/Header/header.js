@@ -8,7 +8,12 @@ class Header extends Component {
     return (
       <div className="header">
         <div className="header-logo">
-          <img src={logo} alt="logo" className="img-header" />
+          <img
+            src={logo}
+            alt="logo"
+            className="img-header"
+            style={{ marginLeft: "-450px" }}
+          />
           <div className="header-lbl">
             <h1>BLUE CHIC Computer</h1>
             <p>Modern And Professional</p>
