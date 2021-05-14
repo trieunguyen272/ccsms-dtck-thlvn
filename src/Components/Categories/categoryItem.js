@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { NavDropdown } from "react-bootstrap";
 
-
 CategoryItem.propTypes = {
   category: PropTypes.object,
   handleToProductClick: PropTypes.func,
@@ -17,12 +16,9 @@ function CategoryItem(props) {
   const { category, onToProductClick } = props;
 
   const handleToProductClick = () => {
-    if (onToProductClick) 
-    {
+    if (onToProductClick) {
       onToProductClick(category);
-      
-    };
-    //window.location.reload();
+    }
   };
 
   return (

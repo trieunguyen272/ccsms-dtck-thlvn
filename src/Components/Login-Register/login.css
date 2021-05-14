@@ -89,3 +89,8 @@ label {
   margin-top: -10px;
   margin-left: 130px;
 }
+table {
+  margin-top: 40px;
+  width: 70%;
+  background-color: aqua;
+}

@@ -1,32 +1,60 @@
 import React from "react";
-import Header from "../Header/header";
-import Navbarmenu from "../Nav/nav";
-import Footer from "../Footer/footer";
 import "./contact.css";
 
 function Contact() {
   return (
     <div className="contact-home">
-      {/* <Header/>
-        <Navbarmenu/> */}
       <div className="contact-item">
-        <h2>
-          {" "}
+        <h2
+          style={{
+            fontSize: "1.3rem",
+            width: "90%",
+            marginLeft: "-5rem",
+            fontFamily: "Times New Roman",
+          }}
+        >
           <b>Mọi chi tiết xin quý khách vui lòng liên hệ: BLUE CHIC Computer</b>
         </h2>
-        <h2>
-          {" "}
+        <h2
+          style={{
+            fontSize: "1.3rem",
+            width: "90%",
+            marginLeft: "-9.8rem",
+            fontFamily: "Times New Roman",
+          }}
+        >
           <i class="fas fa-map-marker-alt"></i> 332 Hoàng Văn Thụ, Tp Quy Nhơn,
           Bình Định
         </h2>
-        <h2>
+        <h2
+          style={{
+            fontSize: "1.3rem",
+            width: "90%",
+            marginLeft: "-14.3rem",
+            fontFamily: "Times New Roman",
+          }}
+        >
           <i class="fas fa-phone"></i> (028)73013878 - 0909305053
         </h2>
-        <h2>
+        <h2
+          style={{
+            fontSize: "1.3rem",
+            width: "90%",
+            marginLeft: "-7.6rem",
+            fontFamily: "Times New Roman",
+          }}
+        >
           <i class="fas fa-door-open"></i> 9h đến 20h từ thứ 2 đến thứ 7, Chủ
           nhật từ 10h đến 19h
         </h2>
-        <h2>
+        <h2
+          style={{
+            fontSize: "1.3rem",
+            width: "90%",
+            marginLeft: "-14.7rem",
+            fontFamily: "Times New Roman",
+          }}
+        >
           <i class="fas fa-globe-asia"></i> www.bluechiccomputer.com
         </h2>
         <iframe

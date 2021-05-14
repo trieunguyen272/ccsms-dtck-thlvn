@@ -15,7 +15,6 @@ export default function Product(props) {
       setProductList(response);
       console.log(response);
     };
-
     getAllProductList();
   }, []);
 
@@ -27,7 +26,7 @@ export default function Product(props) {
   return (
     <Row>
       {productList.map((product) => (
-        <Col key={product.id} lg="3">
+        <Col key={product.id} lg="">
           <ProductCard product={product} onToDetailClick={showDetail} />
         </Col>
       ))}
