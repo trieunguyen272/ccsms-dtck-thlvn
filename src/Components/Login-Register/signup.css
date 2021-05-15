@@ -6,9 +6,9 @@
   margin-left: 0px;
   background-color: #cce6ff;
 }
-.login {
+.signup {
   background-color: #ddff99;
-  height: 450px;
+  height: 650px;
   width: 600px;
   display: flex;
   justify-content: center;
@@ -21,6 +21,8 @@
 }
 
 .fa-user,
-.fa-lock {
+.fa-lock,
+.fa-phone,
+.fa-map-marker-alt {
   margin-right: 10px;
 }
