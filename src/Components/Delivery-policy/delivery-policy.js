@@ -20,7 +20,7 @@ function Delivery() {
           }}
         >
           <b style={{ fontWeight: "bold" }}>
-            I. Chính sách giao hàng tại khu vực Quy Nhơn:{" "}
+            I. Chính sách giao hàng tại khu vực Quy Nhơn:
           </b>
         </h2>
         <h2
@@ -52,7 +52,7 @@ function Delivery() {
             fontFamily: "Times New Roman",
           }}
         >
-          Đơn hàng dưới <b style={{ fontWeight: "bold" }}>300.000đ:</b> phụ thu{" "}
+          Đơn hàng dưới <b style={{ fontWeight: "bold" }}>300.000đ:</b> phụ thu
           <b>10.000đ</b> giao hàng.
         </h2>
         <h2

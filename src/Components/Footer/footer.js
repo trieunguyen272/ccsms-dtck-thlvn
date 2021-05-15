@@ -12,6 +12,7 @@ const Footer = () => {
               style={{
                 fontSize: "1.1rem",
                 fontFamily: "Times New Roman",
+                color: "black"
               }}
               className="title"
             >
@@ -63,6 +64,7 @@ const Footer = () => {
               style={{
                 fontSize: "1.1rem",
                 fontFamily: "Times New Roman",
+                color: "black"
               }}
               className="title"
             >
@@ -107,6 +109,7 @@ const Footer = () => {
               style={{
                 fontSize: "1.1rem",
                 fontFamily: "Times New Roman",
+                color: "black"
               }}
               className="title"
             >
@@ -167,6 +170,7 @@ const Footer = () => {
               style={{
                 fontSize: "1.1rem",
                 fontFamily: "Times New Roman",
+                color: "black"
               }}
               className="title"
             >

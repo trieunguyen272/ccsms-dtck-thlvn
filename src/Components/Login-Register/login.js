@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { login } from "../../services/postData";
-// import { Nav } from "react-bootstrap";
-//import {Signup} from './signup';
 import "./login.css";
-import { MDBRow, MDBCol } from "mdbreact";
-import logo from "../../public/image/logo.jpg";
 
 class Login extends Component {
   constructor() {
@@ -23,9 +19,9 @@ class Login extends Component {
     if (this.state.userName && this.state.password) {
       const response = await login(this.state);
       if (response.status === 200) {
-        //sessionStorage.setItem("userData", JSON.stringify(response.data.data));
         this.setState({ redirectToReferrer: true });
-        localStorage.setItem(response.data);
+
+        localStorage.setItem("userData", JSON.stringify(response.data));
       } else if (response.status === 401) {
         alert(response.data.message);
       }
@@ -39,53 +35,91 @@ class Login extends Component {
       return <Redirect to={"/product-load"} />;
     }
     return (
-      <table border="1">
-        <MDBRow>
-          <MDBCol md="4">
-            <img src={logo} alt="logo" className="img-header" />
-            <h1
-              style={{
-                fontSize: "1.1rem",
-                marginLeft: "6rem",
-                width: "300px",
-                marginTop: "5px",
-              }}
-            >
-              BLUE CHIC Computer
-            </h1>
-          </MDBCol>
-          <MDBCol md="4">
-            <h4>Login</h4>
-            <div className="form">
-              <div className="form-group">
-                <i class="far fa-user"></i>
-                <input
-                  type="text"
-                  name="userName"
-                  placeholder="username"
-                  onChange={this.onChange}
-                />
-              </div>
-              <div className="form-group">
-                <i class="fas fa-lock"></i>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  onChange={this.onChange}
-                />
-              </div>
-            </div>
+      <div className="login">
+        <div
+          className="form"
+          style={{
+            fontSize: "1.4rem",
+            marginLeft: "-10rem",
+            width: "100%",
+            marginTop: "0rem",
+          }}
+        >
+          <h4
+            style={{
+              fontSize: "2rem",
+              textAlign: "center",
+              marginLeft: "30px",
+            }}
+          >
+            Đăng nhập
+          </h4>
+          <div
+            className="form-group"
+            style={{
+              fontSize: "1.3rem",
+              marginLeft: "80px",
+              width: "100%",
+              textAlign: "center",
+              marginTop: "50px",
+            }}
+          >
+            <i class="far fa-user"></i>
             <input
-              type="submit"
-              className="button"
-              value="Đăng nhập"
-              onClick={this.submitLogin}
+              type="text"
+              name="userName"
+              placeholder="Tên đăng nhập"
+              onChange={this.onChange}
+            ></input>
+          </div>
+          <div
+            className="form-group"
+            style={{
+              fontSize: "1.3rem",
+              marginLeft: "91px",
+              width: "100%",
+              textAlign: "center",
+              marginTop: "30px",
+            }}
+          >
+            <i class="fas fa-lock"></i>
+            <input
+              type="password"
+              name="password"
+              placeholder="Mật khẩu"
+              onChange={this.onChange}
             />
-            <a href="/signup">Đăng ký</a>
-          </MDBCol>
-        </MDBRow>
-      </table>
+          </div>
+          <input
+            type="submit"
+            className="button"
+            value="Đăng nhập"
+            onClick={this.submitLogin}
+            style={{ marginLeft: "150px" }}
+          />
+          <h4
+            style={{
+              fontSize: "1.4rem",
+              textAlign: "center",
+              marginLeft: "30px",
+              marginTop: "20px",
+            }}
+          >
+            Bạn chưa có tài khoản?
+          </h4>
+          <a
+            href="/signup"
+            style={{
+              fontSize: "1.4rem",
+              textAlign: "center",
+              marginLeft: "10rem",
+              marginTop: "20px",
+            }}
+          >
+            Đăng ký
+          </a>
+        </div>
+      </div>
     );
   }
 }

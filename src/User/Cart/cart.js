@@ -39,7 +39,6 @@ class Cart extends Component {
   // }
 
   render() {
-    console.log(localStorage.getItem("userName"));
     return (
       <Router>
         <div className="App">

@@ -26,7 +26,7 @@ function ProductCategoriesList() {
   return (
     <Row>
       {productCategoriesList.map((product) => (
-        <Col key={product.id} lg="">
+        <Col key={product.id} lg="3">
           <ProductCard product={product} onToDetailClick={showDetail} />
         </Col>
       ))}

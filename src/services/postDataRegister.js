@@ -1,8 +1,6 @@
 import axios from "axios";
-//import { createGlobalStyle } from "styled-components";
 
 const BaseURL = "http://localhost:4000/api";
-
 
 export const signup = async (data) => {
   const url = `${BaseURL}/user/register`;
