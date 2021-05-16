@@ -26,7 +26,7 @@ class Signup extends Component {
       const response = await signup(this.state);
       console.log(response);
       if (response.status === 200) {
-        alert("Signup success");
+        alert(response.data.message);
         this.setState({ redirectToReferrer: true });
       } else if (response.status === 401) {
         alert(response.data.message);

@@ -1,126 +1,131 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import { login } from "../../services/postData";
+import React, { useState, useRef } from "react";
+import { Col, Form, Button, Row, Container } from "react-bootstrap";
+import { Redirect, useHistory } from "react-router-dom";
+import userApi from "../../services/userApi";
 import "./login.css";
 
-class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      userName: "",
-      password: "",
-      redirectToReferrer: false,
-    };
-    this.submitLogin = this.submitLogin.bind(this);
-    this.onChange = this.onChange.bind(this);
-  }
+function Login() {
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     userName: "",
+  //     password: "",
+  //     redirectToReferrer: false,
+  //   };
+  //   this.submitLogin = this.submitLogin.bind(this);
+  //   this.onChange = this.onChange.bind(this);
+  // }
+  const history = useHistory();
+  const [validated, setValidated] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  submitLogin = async () => {
-    if (this.state.userName && this.state.password) {
-      const response = await login(this.state);
-      if (response.status === 200) {
-        this.setState({ redirectToReferrer: true });
+  const handleSubmit = async (e) => {
+    const form = e.currentTarget;
 
-        localStorage.setItem("userData", JSON.stringify(response.data));
-      } else if (response.status === 401) {
-        alert(response.data.message);
-      }
+    if (form.checkValidity() === false) {
     }
+    if (username && password) {
+      const params = {
+        username: username,
+        password: password,
+      };
+
+      await userApi.login(params).then(
+        (response) => {
+          const productUrl = "/product-load";
+
+          localStorage.setItem("userData", JSON.stringify(response));
+
+          history.push(productUrl);
+          window.location.reload();
+        },
+        (error) => {
+          if (error.response) {
+            alert(error.response.data.message);
+          }
+        }
+      );
+    }
+    setValidated(true);
   };
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-  render() {
-    if (this.state.redirectToReferrer) {
-      return <Redirect to={"/product-load"} />;
-    }
-    return (
-      <div className="login">
-        <div
-          className="form"
-          style={{
-            fontSize: "1.4rem",
-            marginLeft: "-10rem",
-            width: "100%",
-            marginTop: "0rem",
-          }}
-        >
-          <h4
+
+  const onChangeUsername = (e) => {
+    const username = e.target.value;
+    setUsername(username);
+  };
+
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+  };
+
+  return (
+    <div className="login">
+      <div
+        className="form"
+        style={{
+          fontSize: "1.4rem",
+          width: "100%",
+          marginTop: "0rem",
+        }}
+      >
+        <Form noValidate validated={validated}>
+          <Form.Label
+            column
+            sm={4}
             style={{
               fontSize: "2rem",
-              textAlign: "center",
-              marginLeft: "30px",
+              fontWeight: "400",
             }}
           >
             Đăng nhập
-          </h4>
-          <div
-            className="form-group"
-            style={{
-              fontSize: "1.3rem",
-              marginLeft: "80px",
-              width: "100%",
-              textAlign: "center",
-              marginTop: "50px",
-            }}
-          >
-            <i class="far fa-user"></i>
-            <input
-              type="text"
-              name="userName"
-              placeholder="Tên đăng nhập"
-              onChange={this.onChange}
-            ></input>
-          </div>
-          <div
-            className="form-group"
-            style={{
-              fontSize: "1.3rem",
-              marginLeft: "91px",
-              width: "100%",
-              textAlign: "center",
-              marginTop: "30px",
-            }}
-          >
-            <i class="fas fa-lock"></i>
-            <input
-              type="password"
-              name="password"
-              placeholder="Mật khẩu"
-              onChange={this.onChange}
-            />
-          </div>
-          <input
-            type="submit"
-            className="button"
-            value="Đăng nhập"
-            onClick={this.submitLogin}
-            style={{ marginLeft: "150px" }}
-          />
-          <h4
-            style={{
-              fontSize: "1.4rem",
-              textAlign: "center",
-              marginLeft: "30px",
-              marginTop: "20px",
-            }}
-          >
-            Bạn chưa có tài khoản?
-          </h4>
-          <a
-            href="/signup"
-            style={{
-              fontSize: "1.4rem",
-              textAlign: "center",
-              marginLeft: "10rem",
-              marginTop: "20px",
-            }}
-          >
-            Đăng ký
-          </a>
-        </div>
+          </Form.Label>
+          <Form.Group as={Row} controlId="validationUsername">
+            <Col sm={2}></Col>
+            <Form.Label column sm={1}>
+              <i class="fa fa-user-circle"></i>
+            </Form.Label>
+            <Col sm={7}>
+              <Form.Control
+                type="text"
+                placeholder="Username"
+                name="username"
+                value={username}
+                onChange={onChangeUsername}
+                required
+              />
+            </Col>
+            <Col sm={2}></Col>
+          </Form.Group>
+          <Form.Group as={Row} controlId="validationPassword">
+            <Col sm={2}></Col>
+            <Form.Label column sm={1}>
+              <i class="fas fa-lock"></i>
+            </Form.Label>
+            <Col sm={7}>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={onChangePassword}
+                required
+              />
+            </Col>
+            <Col sm={2}></Col>
+          </Form.Group>
+          <Button onClick={handleSubmit}>Đăng nhập</Button>
+          <Col>
+            <Form.Label column sm={8} style={{ fontSize: "1rem" }}>
+              Bạn chưa có tài khoản? <a href="/signup">Đăng ký</a>
+            </Form.Label>
+          </Col>
+        </Form>
       </div>
-    );
-  }
+    </div>
+  );
 }
+// }
 export default Login;
