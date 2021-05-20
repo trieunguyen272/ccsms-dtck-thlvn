@@ -67,7 +67,7 @@ export default function cart() {
                     </button>
                   </td>
                 </tr>
-                <tr>
+                {/* <tr>
                   <td className="col-md-1">
                     <div className="media">
                       <a className="thumbnail pull-left" href="#">
@@ -113,7 +113,7 @@ export default function cart() {
                       Remove
                     </button>
                   </td>
-                </tr>
+                </tr> */}
                 <tr>
                   <td>   </td>
                   <td>   </td>

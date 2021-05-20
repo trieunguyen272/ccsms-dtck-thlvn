@@ -24,7 +24,6 @@ function ProductDetail() {
   const handleDecrement = () => {
     setCount((prevCount) => (prevCount > 0 ? prevCount - 1 : (prevCount = 0)));
   };
-
   const handleAddCartClick = () => {};
 
   return (
