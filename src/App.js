@@ -11,10 +11,10 @@ import Contact from "./Components/Contact/contact";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Login from "./Components/Login-Register/login";
 import Signup from "./Components/Login-Register/signup";
-import Cart from "./User/Cart/cart";
 import productCategoriesList from "./Components/Categories/productCategories";
 import Home from "./Components/Home/home";
 import productDetail from "./Components/Product/productDetail";
+import Cart from "./Components/Cart/cart";
 function App() {
   return (
     <div className="App">
@@ -30,7 +30,7 @@ function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
 
-          <Route path="/product-load" exact component={Cart} />
+          {/* <Route path="/nav" exact component={Navbarmenu} /> */}
           <Route
             path={`/product-detail/:productId`}
             exact
@@ -41,6 +41,7 @@ function App() {
             exact
             component={productCategoriesList}
           />
+          <Route path="/cart" exact component={Cart} />
         </Switch>
 
         <Footer />

@@ -36,12 +36,26 @@ function Navbarmenu(props) {
     const productUrl = `/product-categories/${categoryt.id}`;
 
     history.push(productUrl);
-
+    // window.location.reload();
     let currentPath = window.location.pathname;
     history.replace(`/${categoryt.id}`);
     setTimeout(() => {
       history.replace(currentPath);
     }, 0);
+  };
+
+  const userData = localStorage.getItem("userData");
+  console.log("asdas", localStorage.getItem("userData"));
+
+  const handleExitClick = () => {
+    localStorage.removeItem("userData");
+    console.log("Removed userDa");
+  };
+
+  const handleCartClick = () => {
+    const productUrl = `/cart`;
+
+    history.push(productUrl);
   };
 
   return (
@@ -83,7 +97,7 @@ function Navbarmenu(props) {
             </Nav.Link>
           </Nav>
           <Nav>
-            <MDBCol md="7">
+            <MDBCol md="6">
               <div className="input-group md-form form-sm form-1 pl-0">
                 <input
                   className="form-control my-0 py-1"
@@ -102,14 +116,34 @@ function Navbarmenu(props) {
               </div>
             </MDBCol>
 
-            <Nav.Link href="/login" className="lbl">
-              <i class="fa fa-user" aria-hidden="true"></i>
-              ĐĂNG NHẬP
-            </Nav.Link>
-            <Nav.Link eventKey={2} href="#memes" className="lbl">
-              <i class="fa fa-times" aria-hidden="true"></i>
-              THOÁT
-            </Nav.Link>
+            {userData ? (
+              <Nav.Link eventKey={2} href="/cart" className="lbl">
+                <i class="fas fa-cart-plus"></i>
+                GIỎ HÀNG
+              </Nav.Link>
+            ) : (
+              <Nav.Link href="/login" className="lbl">
+                <i class="fas fa-cart-plus"></i>
+                GIỎ HÀNG
+              </Nav.Link>
+            )}
+
+            {userData ? (
+              <Nav.Link
+                eventKey={2}
+                href="/"
+                className="lbl"
+                onClick={handleExitClick}
+              >
+                <i class="fa fa-times" aria-hidden="true"></i>
+                THOÁT
+              </Nav.Link>
+            ) : (
+              <Nav.Link href="/login" className="lbl">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                ĐĂNG NHẬP
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

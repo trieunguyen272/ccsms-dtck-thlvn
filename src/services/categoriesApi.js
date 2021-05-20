@@ -10,6 +10,7 @@ const categorytApi = {
     const url = `/products?categoryId=${id}`;
     return axiosClient.get(url);
   },
+
   get: (id) => {
     const url = `/categoryId/${id}`;
     return axiosClient.get(url);

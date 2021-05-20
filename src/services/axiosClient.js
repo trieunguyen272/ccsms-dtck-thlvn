@@ -11,10 +11,24 @@ const axiosClient = axios.create({
   paramsSerializer: (params) => queryString.stringify(params),
 });
 
+// axiosClient.interceptors.request.use((config) => {
+//   const userData = localStorage.getItem("userData");
+
+//   if (userData) {
+//     const token = JSON.parse(userData).access_token;
+
+//     if (token) {
+//       config.headers.Authorization = `Bearer ${token}`;
+//     }
+//   }
+
+//   return config;
+// });
+
 axiosClient.interceptors.response.use(
   (response) => {
     if (response && response.data) {
-      console.log("aaa", response);
+      console.log(response);
       return response.data;
     }
     return response;
