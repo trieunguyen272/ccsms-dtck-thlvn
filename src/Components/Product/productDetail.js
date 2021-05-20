@@ -25,10 +25,6 @@ function ProductDetail() {
     setCount((prevCount) => (prevCount > 0 ? prevCount - 1 : (prevCount = 0)));
   };
 
-  const [productId, setProductId] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [cartId, setCartId] = useState("");
-
   const handleAddCartClick = () => {};
 
   return (
