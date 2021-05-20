@@ -1,5 +1,6 @@
 .fa-user,
-.fa-times {
+.fa-times,
+.fa-cart-plus {
   margin-right: 5px;
   margin-left: 20px;
 }
@@ -39,4 +40,8 @@ a {
   font-weight: bolder;
   font-family: "Times New Roman", Times, serif;
   font-size: 15px;
+}
+
+.form-control.my-0.py-1 {
+  width: 180px;
 }

@@ -34,12 +34,12 @@ function Login() {
 
       await userApi.login(params).then(
         (response) => {
-          const productUrl = "/product-load";
+          const productUrl = "/";
 
           localStorage.setItem("userData", JSON.stringify(response));
 
           history.push(productUrl);
-          window.location.reload();
+          // window.location.reload();
         },
         (error) => {
           if (error.response) {
