@@ -1,5 +1,4 @@
 import axiosClient from "./axiosClient";
-import authHeader from "./authHeader";
 
 const userApi = {
   login: (params) => {

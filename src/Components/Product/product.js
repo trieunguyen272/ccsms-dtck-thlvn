@@ -22,6 +22,7 @@ export default function Product(props) {
     const detailUrl = `/product-detail/${product.id}`;
     history.push(detailUrl);
   };
+
   return (
     <Row>
       {productList.map((product) => (
