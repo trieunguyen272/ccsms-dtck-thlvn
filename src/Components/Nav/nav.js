@@ -45,7 +45,6 @@ function Navbarmenu(props) {
   };
 
   const userData = localStorage.getItem("userData");
-  console.log("asdas", localStorage.getItem("userData"));
 
   const handleExitClick = () => {
     localStorage.removeItem("userData");

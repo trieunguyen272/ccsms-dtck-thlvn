@@ -1,7 +1,8 @@
 import productApi from "../../services/productApi";
+import orderApi from "../../services/orderApi";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { MDBCol, MDBRow } from "mdbreact";
 
@@ -9,6 +10,9 @@ function ProductDetail() {
   const { productId } = useParams();
   const [productDetail, setProductDetail] = useState([]);
   const [count, setCount] = useState(0);
+  const [quantity, setQuantity] = useState([]);
+  const [setProductId] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const getProductDetail = async () => {
@@ -18,13 +22,21 @@ function ProductDetail() {
     };
     getProductDetail();
   }, []);
+
   const handleIncrement = () => {
     setCount((prevCount) => prevCount + 1);
   };
+
   const handleDecrement = () => {
     setCount((prevCount) => (prevCount > 0 ? prevCount - 1 : (prevCount = 0)));
   };
-  const handleAddCartClick = () => {};
+
+  const handleAddCartClick = async () => {
+    const cartId = localStorage.getItem("cartId");
+    await orderApi.getOrder(cartId, count, productDetail.id);
+    const productUrl = `/cart`;
+    history.push(productUrl);
+  };
 
   return (
     <MDBRow>

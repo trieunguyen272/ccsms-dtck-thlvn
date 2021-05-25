@@ -11,20 +11,6 @@ const axiosClient = axios.create({
   paramsSerializer: (params) => queryString.stringify(params),
 });
 
-// axiosClient.interceptors.request.use((config) => {
-//   const userData = localStorage.getItem("userData");
-
-//   if (userData) {
-//     const token = JSON.parse(userData).access_token;
-
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`;
-//     }
-//   }
-
-//   return config;
-// });
-
 axiosClient.interceptors.response.use(
   (response) => {
     if (response && response.data) {
@@ -34,6 +20,13 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
+    console.log("error.response", error.response);
+    if (error.response && error.response.data.status === 401) {
+      localStorage.removeItem("userData");
+      console.log("Removed localStorage");
+      window.location = "/login";
+    }
+
     throw error;
   }
 );
