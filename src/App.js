@@ -15,6 +15,7 @@ import productCategoriesList from "./Components/Categories/productCategories";
 import Home from "./Components/Home/home";
 import productDetail from "./Components/Product/productDetail";
 import Cart from "./Components/Cart/cart";
+import Transition from "./Components/Cart/transition";
 function App() {
   return (
     <div className="App">
@@ -42,6 +43,7 @@ function App() {
             component={productCategoriesList}
           />
           <Route path="/cart" exact component={Cart} />
+          <Route path="/transition" exact component={Transition} />
         </Switch>
 
         <Footer />
