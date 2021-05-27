@@ -47,7 +47,7 @@ function Navbarmenu(props) {
   const userData = localStorage.getItem("userData");
 
   const handleExitClick = () => {
-    localStorage.removeItem("userData");
+    localStorage.clear();
     console.log("Removed userDa");
   };
 

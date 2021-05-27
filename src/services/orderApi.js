@@ -48,13 +48,6 @@ const orderApi = {
       headers: authHeader(),
     });
   },
-  updateOrder: async (cartId) => {
-    const getOrder = `orders?cartId=${cartId}`;
-    await axiosClient.get(getOrder, {
-      cartId,
-      headers: authHeader(),
-    });
-  },
 };
 
 export default orderApi;

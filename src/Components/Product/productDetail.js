@@ -32,8 +32,9 @@ function ProductDetail() {
   };
 
   const handleAddCartClick = async () => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
     const cartId = localStorage.getItem("cartId");
-    await orderApi.getOrder(cartId, count, productDetail.id);
+    await orderApi.getOrder(userData.user_id, cartId, count, productDetail.id);
     const productUrl = `/cart`;
     history.push(productUrl);
   };

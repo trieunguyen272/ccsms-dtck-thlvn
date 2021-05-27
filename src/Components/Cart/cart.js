@@ -11,6 +11,7 @@ export default function Cart() {
   let totalPriceTemp = 0;
   const [list, setList] = useState({ orderList: [] });
   const userData = JSON.parse(localStorage.getItem("userData"));
+  const [checked, setChecked] = useState();
 
   useEffect(() => {
     if (userData && userData.access_token) {
@@ -28,17 +29,41 @@ export default function Cart() {
       history.push("/login");
     }
   }, []);
-  useEffect(() => {}, []);
 
+  // useEffect(() => {
+  //   const getChecked = () => {
+  //     const response = (checked) => (checked = !checked);
+  //     setChecked(response);
+  //     console.log("response", response);
+  //   };
+  //   getChecked();
+  // }, []);
+
+  const checkOrder = async (order) => {};
+  const changeCheckOrder = (e) => {
+    const checked = e.target.value;
+    console.log(checked);
+    console.log("da check");
+    //setChecked((checked) => checked.set(e.target.value));
+    // setChecked({ checked, checked: !e.target.value });
+    //this.setState({ location: !e.target.checked });
+    setChecked(!e.target.value);
+    // checked = !checked;
+    console.log(checked);
+
+    // const unck = !checked;
+    // setChecked(unck);
+    //
+    //console.log(!checked);
+  };
   const removeOrder = async (order) => {
     const cartId = localStorage.getItem("cartId");
-    const userId = localStorage.getItem("userId");
     console.log(order.product.id);
     const productId = order.product.id;
     console.log(productId);
     await orderApi.deleteOrder(cartId, productId);
     const list = orderList.filter((order) => order.product.id != productId);
-    console.log(list);
+    setOrderList(list);
   };
 
   const quantityChange = () => {};
@@ -52,6 +77,10 @@ export default function Cart() {
       });
     }
     setTotalPrice(totalPriceTemp);
+  };
+  const transitionUrl = () => {
+    const tranUrl = `/transition`;
+    history.push(tranUrl);
   };
 
   return (
@@ -79,66 +108,48 @@ export default function Cart() {
                     <Order
                       key={order.id}
                       order={order}
+                      onCheckClick={checkOrder}
+                      onChangeCheck={(e) => changeCheckOrder(e)}
                       onRemoveClick={removeOrder}
                       handleQuantityChange={quantityChange}
                     />
                   ))}
 
-                  <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>
-                      <h5>Subtotal</h5>
+                  <tr className="row">
+                    <td className="col-sm-1">   </td>
+                    <td className="col-sm-4">   </td>
+                    <td className="col-sm-2">   </td>
+                    <td className="col-sm-2 text-left">
+                      <h5>Tổng tiền</h5>
                     </td>
-                    <td className="text-right">
+                    <td className="col-sm-2 text-left">
                       <h5>
                         <strong>{totalPrice} VNĐ</strong>
                       </h5>
                     </td>
                   </tr>
-                  <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>
-                      <h5>Estimated shipping</h5>
-                    </td>
-                    <td className="text-right">
-                      <h5>
-                        <strong></strong>
-                      </h5>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>
-                      <h3>Total</h3>
-                    </td>
-                    <td className="text-right">
-                      <h3>
-                        <strong></strong>
-                      </h3>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>
-                      <button type="button" className="btn btn-default">
+
+                  <tr className="row">
+                    <td className="col-sm-1">   </td>
+                    <td className="col-sm-4">   </td>
+                    <td className="col-sm-2">   </td>
+                    <td className="col-sm-2">   </td>
+                    <td className="col-sm-3 text-right">
+                      <button
+                        type="button"
+                        className="btn btn-default"
+                        onClick={transitionUrl}
+                      >
                         <span className="glyphicon glyphicon-shopping-cart"></span>{" "}
-                        Continue Shopping
+                        Đặt hàng
                       </button>
                     </td>
-                    <td>
+                    {/* <td>
                       <button type="button" className="btn btn-success">
                         Checkout{" "}
                         <span className="glyphicon glyphicon-play"></span>
                       </button>
-                    </td>
+                    </td> */}
                   </tr>
                 </tbody>
               </table>
