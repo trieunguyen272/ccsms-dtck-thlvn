@@ -128,15 +128,43 @@ function Navbarmenu(props) {
             )}
 
             {userData ? (
-              <Nav.Link
-                eventKey={2}
-                href="/"
-                className="lbl"
-                onClick={handleExitClick}
+              <Navbar
+                collapseOnSelect
+                expand="lg"
+                bg="light"
+                variant="info"
+                className="navbar navbar-fixed-top"
               >
-                <i class="fa fa-times" aria-hidden="true"></i>
-                THOÁT
-              </Nav.Link>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                  <Nav className="mr-auto" id="menu">
+                    <NavDropdown
+                      className="lbl"
+                      title={userData.user_id}
+                      id="collasible-nav-dropdown"
+                    >
+                      <Nav.Link
+                        eventKey={2}
+                        href="/"
+                        className="lbl"
+                        onClick={handleExitClick}
+                      >
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        ĐƠN MUA
+                      </Nav.Link>
+                      <Nav.Link
+                        eventKey={2}
+                        href="/"
+                        className="lbl"
+                        onClick={handleExitClick}
+                      >
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        THOÁT
+                      </Nav.Link>
+                    </NavDropdown>
+                  </Nav>
+                </Navbar.Collapse>
+              </Navbar>
             ) : (
               <Nav.Link href="/login" className="lbl">
                 <i class="fa fa-user" aria-hidden="true"></i>

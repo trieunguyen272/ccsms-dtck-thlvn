@@ -3,71 +3,88 @@ import { useHistory } from "react-router-dom";
 import cartApi from "../../services/cartApi";
 import Order from "./order";
 import orderApi from "../../services/orderApi";
+import billApi from "../../services/billApi";
 
 export default function Cart() {
   const history = useHistory();
   const [orderList, setOrderList] = useState([]);
+  const [quantityProductOrder, setQuantityProductOrder] = useState();
   const [totalPrice, setTotalPrice] = useState(0);
-  let totalPriceTemp = 0;
-  const [list, setList] = useState({ orderList: [] });
   const userData = JSON.parse(localStorage.getItem("userData"));
-  const [checked, setChecked] = useState();
+  let totalPriceTemp = 0;
+  //let count = 0;
+  const [count, setCount] = useState(1);
+  const [value, getValue] = useState(0);
 
   useEffect(() => {
     if (userData && userData.access_token) {
-      console.log("access_token cart", userData.access_token);
+      const userId = userData.user_id;
 
-      const getOrderList = async () => {
-        const response = await cartApi.getOrderList(userData.user_id);
+      const apiGetOrderList = async () => {
+        if (
+          localStorage.getItem("cartId") === undefined ||
+          localStorage.getItem("cartId") === null
+        ) {
+          const responseCart = await cartApi.getByUserId(userId);
+
+          // Nếu user chưa có trong bảng cart thì thêm user đó
+          if (responseCart.length === 0) {
+            const response = cartApi.addCart(userId);
+            localStorage.setItem("cartId", response.id);
+          } else {
+            const cartId = responseCart[0].id;
+            localStorage.setItem("cartId", cartId);
+          }
+        }
+
+        const response = await cartApi.getOrderList();
         setOrderList(response);
-        console.log("orderList", response);
 
         calculateTotalPrice(response);
       };
-      getOrderList();
+      apiGetOrderList();
     } else {
       history.push("/login");
     }
   }, []);
 
-  // useEffect(() => {
-  //   const getChecked = () => {
-  //     const response = (checked) => (checked = !checked);
-  //     setChecked(response);
-  //     console.log("response", response);
-  //   };
-  //   getChecked();
-  // }, []);
+  useEffect(() => {
+    setCount((count) => count + 1);
+  }, []);
 
-  const checkOrder = async (order) => {};
-  const changeCheckOrder = (e) => {
-    const checked = e.target.value;
-    console.log(checked);
-    console.log("da check");
-    //setChecked((checked) => checked.set(e.target.value));
-    // setChecked({ checked, checked: !e.target.value });
-    //this.setState({ location: !e.target.checked });
-    setChecked(!e.target.value);
-    // checked = !checked;
-    console.log(checked);
-
-    // const unck = !checked;
-    // setChecked(unck);
-    //
-    //console.log(!checked);
-  };
   const removeOrder = async (order) => {
     const cartId = localStorage.getItem("cartId");
     console.log(order.product.id);
     const productId = order.product.id;
     console.log(productId);
     await orderApi.deleteOrder(cartId, productId);
-    const list = orderList.filter((order) => order.product.id != productId);
+    const list = orderList.filter((order) => order.product.id !== productId);
     setOrderList(list);
   };
 
   const quantityChange = () => {};
-  // const checkChange = () => {};
+
+  const quantityOrder = async (order) => {
+    const count = order.quantity;
+    getValue(count);
+  };
+
+  const incrementOrder = async (order) => {
+    const productId = -1;
+    await orderApi.updateQuantityOrder(
+      order.cartId,
+      order.quantity + 1,
+      order.product.id
+    );
+    const list = orderList.filter((order) => order.product.id !== productId);
+    setOrderList(list);
+    list.map((order) => {
+      const price = order.product.price * order.quantity;
+      totalPriceTemp += price;
+    });
+    setTotalPrice(totalPriceTemp);
+    console.log("da tang", orderList);
+  };
 
   const calculateTotalPrice = (orderList) => {
     if (orderList.length > 0) {
@@ -78,9 +95,22 @@ export default function Cart() {
     }
     setTotalPrice(totalPriceTemp);
   };
-  const transitionUrl = () => {
-    const tranUrl = `/transition`;
-    history.push(tranUrl);
+  const handleAddBillClick = async () => {
+    const cartId = localStorage.getItem("cartId");
+
+    const responseOrder = await billApi.getByCartId(cartId);
+
+    // const response = await cartApi.addCart(userId);
+    //localStorage.setItem("orderId", response.id);
+
+    const orderId = responseOrder[0].id;
+    localStorage.setItem("orderId", orderId);
+
+    orderId = localStorage.getItem("orderId");
+    // console.log("order", orderId);
+    await billApi.addBill(orderId, Date.now());
+    // const billUrl = `/bill`;
+    // history.push(billUrl);
   };
 
   return (
@@ -94,10 +124,8 @@ export default function Cart() {
               <table className="table table-hover">
                 <thead>
                   <tr className="row">
-                    <th className="col-sm-1">Mua hàng</th>
-
-                    <th className="col-sm-4 text-center">Sản phẩm</th>
-                    <th className="col-sm-1 text-center">Số lượng</th>
+                    <th className="col-sm-3 text-center">Sản phẩm</th>
+                    <th className="col-sm-2 text-center">Số lượng</th>
                     <th className="col-sm-2 text-center">Đơn giá</th>
                     <th className="col-sm-2 text-center">Tổng tiền</th>
                     <th> </th>
@@ -108,8 +136,8 @@ export default function Cart() {
                     <Order
                       key={order.id}
                       order={order}
-                      onCheckClick={checkOrder}
-                      onChangeCheck={(e) => changeCheckOrder(e)}
+                      onValueQuantity={quantityOrder}
+                      onIncrementClick={incrementOrder}
                       onRemoveClick={removeOrder}
                       handleQuantityChange={quantityChange}
                     />
@@ -138,7 +166,7 @@ export default function Cart() {
                       <button
                         type="button"
                         className="btn btn-default"
-                        onClick={transitionUrl}
+                        onClick={handleAddBillClick}
                       >
                         <span className="glyphicon glyphicon-shopping-cart"></span>{" "}
                         Đặt hàng

@@ -1,21 +1,22 @@
 import axiosClient from "./axiosClient";
 import authHeader from "./authHeader";
 
-const cartApi = {
-  addCart: (userId) => {
-    const addCartUrl = `/carts`;
+const billApi = {
+  addBill: (orderId, date) => {
+    const addBillUrl = `/bills`;
     const param = {
-      userId: userId,
+      orderId: orderId,
+      date: date,
     };
 
-    return axiosClient.post(addCartUrl, param, {
+    return axiosClient.post(addBillUrl, param, {
       headers: authHeader(),
     });
   },
 
-  getByUserId: (userId) => {
-    const url = `/carts?userId=${userId}`;
-    return axiosClient.get(url, { userId, headers: authHeader() });
+  getByCartId: (cartId) => {
+    const url = `/orders?cartId=${cartId}`;
+    return axiosClient.get(url, { cartId, headers: authHeader() });
   },
 
   getOrderList: async () => {
@@ -27,4 +28,4 @@ const cartApi = {
   },
 };
 
-export default cartApi;
+export default billApi;
