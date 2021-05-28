@@ -1,21 +1,9 @@
-import React, { useState, useRef } from "react";
-import { Col, Form, Button, Row, Container } from "react-bootstrap";
-import { Redirect, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { Col, Form, Button, Row } from "react-bootstrap";
 import userApi from "../../services/userApi";
 import "./login.css";
 
 function Login() {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     userName: "",
-  //     password: "",
-  //     redirectToReferrer: false,
-  //   };
-  //   this.submitLogin = this.submitLogin.bind(this);
-  //   this.onChange = this.onChange.bind(this);
-  // }
-  const history = useHistory();
   const [validated, setValidated] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -33,12 +21,8 @@ function Login() {
 
       await userApi.login(params).then(
         (response) => {
-          const productUrl = "/";
-
           localStorage.setItem("userData", JSON.stringify(response));
-
-          history.push(productUrl);
-          // window.location.reload();
+          window.location = "/";
         },
         (error) => {
           if (error.response) {

@@ -1,5 +1,6 @@
 import productApi from "../../services/productApi";
 import orderApi from "../../services/orderApi";
+import cartApi from "../../services/cartApi";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
@@ -9,10 +10,10 @@ import { MDBCol, MDBRow } from "mdbreact";
 function ProductDetail() {
   const { productId } = useParams();
   const [productDetail, setProductDetail] = useState([]);
-  const [count, setCount] = useState(0);
-  const [quantity, setQuantity] = useState([]);
-  const [setProductId] = useState([]);
+  const [count, setCount] = useState(1);
   const history = useHistory();
+
+  const userData = JSON.parse(localStorage.getItem("userData"));
 
   useEffect(() => {
     const getProductDetail = async () => {
@@ -32,11 +33,33 @@ function ProductDetail() {
   };
 
   const handleAddCartClick = async () => {
-    const userData = JSON.parse(localStorage.getItem("userData"));
-    const cartId = localStorage.getItem("cartId");
-    await orderApi.getOrder(userData.user_id, cartId, count, productDetail.id);
-    const productUrl = `/cart`;
-    history.push(productUrl);
+    if (userData && userData.access_token) {
+      const userId = userData.user_id;
+
+      if (
+        localStorage.getItem("cartId") === undefined ||
+        localStorage.getItem("cartId") === null
+      ) {
+        const responseCart = await cartApi.getByUserId(userId);
+
+        // Nếu user chưa có trong bảng cart thì thêm user đó
+        if (responseCart.length === 0) {
+          const response = await cartApi.addCart(userId);
+          localStorage.setItem("cartId", response.id);
+        } else {
+          const cartId = responseCart[0].id;
+          localStorage.setItem("cartId", cartId);
+        }
+      }
+
+      const cartId = localStorage.getItem("cartId");
+      console.log("cart", cartId);
+      await orderApi.addOrder(cartId, count, productDetail.id);
+      // const productUrl = `/cart`;
+      // history.push(productUrl);
+    } else {
+      history.push("/login");
+    }
   };
 
   return (
