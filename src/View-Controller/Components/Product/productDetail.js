@@ -1,6 +1,6 @@
-import productApi from "../../services/productApi";
-import orderApi from "../../services/orderApi";
-import cartApi from "../../services/cartApi";
+import productApi from "../../../Model/services/productApi";
+import orderApi from "../../../Model/services/orderApi";
+import cartApi from "../../../Model/services/cartApi";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
@@ -29,7 +29,7 @@ function ProductDetail() {
   };
 
   const handleDecrement = () => {
-    setCount((prevCount) => (prevCount > 0 ? prevCount - 1 : (prevCount = 0)));
+    setCount((prevCount) => (prevCount > 1 ? prevCount - 1 : (prevCount = 1)));
   };
 
   const handleAddCartClick = async () => {
@@ -117,9 +117,8 @@ function ProductDetail() {
           style={{
             marginLeft: "1.5rem",
             marginTop: "-3rem",
-            fontSize: "20px",
+            fontSize: "16px",
             width: "5px",
-            height: "2rem",
             textAlign: "center",
             display: "inline-block",
             background: "white",
@@ -142,9 +141,8 @@ function ProductDetail() {
           style={{
             marginLeft: "17rem",
             marginTop: "-4rem",
-            fontSize: "20px",
+            fontSize: "16px",
             width: "5px",
-            height: "2rem",
             textAlign: "center",
             display: "inline-block",
             background: "white",

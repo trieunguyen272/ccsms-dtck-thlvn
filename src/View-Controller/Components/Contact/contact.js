@@ -1,22 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./contact.css";
-import cartApi from "../../services/cartApi";
 
 export default function Contact() {
-  const [cartList, setCartList] = useState([]);
-  const userData = JSON.parse(localStorage.getItem("userData"));
-  console.log("asdasd", userData.access_token);
-  useEffect(() => {
-    if (userData && userData.access_token) {
-      const getCartList = async () => {
-        const response = await cartApi.getByUserId(userData.user_id);
-        setCartList(response);
-        console.log(response);
-      };
-      getCartList();
-    }
-  }, []);
-
   return (
     <div className="contact-home">
       <div className="contact-item">

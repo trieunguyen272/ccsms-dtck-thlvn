@@ -1,4 +1,4 @@
-import categorytApi from "../../services/categoriesApi";
+import categorytApi from "../../../Model/services/categoriesApi";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import ProductCard from "../Product/productCart";

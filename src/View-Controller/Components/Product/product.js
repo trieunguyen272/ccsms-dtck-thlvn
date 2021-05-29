@@ -1,4 +1,4 @@
-import productApi from "../../services/productApi";
+import productApi from "../../../Model/services/productApi";
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
