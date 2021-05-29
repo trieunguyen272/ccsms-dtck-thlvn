@@ -1,12 +1,12 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-import banner1 from "../../public/image/banner_1.jpg";
-import banner2 from "../../public/image/banner_2.jpg";
-import banner3 from "../../public/image/banner_3.jpg";
-import banner4 from "../../public/image/banner_4.png";
-import banner5 from "../../public/image/banner_5.jpg";
-import banner6 from "../../public/image/banner_6.jpg";
-import banner7 from "../../public/image/banner_7.jpg";
+import banner1 from "../../../public/image/banner_1.jpg";
+import banner2 from "../../../public/image/banner_2.jpg";
+import banner3 from "../../../public/image/banner_3.jpg";
+import banner4 from "../../../public/image/banner_4.png";
+import banner5 from "../../../public/image/banner_5.jpg";
+import banner6 from "../../../public/image/banner_6.jpg";
+import banner7 from "../../../public/image/banner_7.jpg";
 import Product from "../Product/product";
 
 export default function Home() {

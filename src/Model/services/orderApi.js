@@ -50,6 +50,14 @@ const orderApi = {
     });
   },
 
+  deleteAllOrder: async (cartId) => {
+    const deleteOrderUrl = `/orders?cartId=${cartId}`;
+    await axiosClient.delete(deleteOrderUrl, {
+      cartId,
+      headers: authHeader(),
+    });
+  },
+
   updateQuantityOrder: async (cartId, quantity, productId) => {
     const getOrderUrl = `orders?productId=${productId}&cartId=${cartId}`;
     const responseOrder = await axiosClient.get(getOrderUrl, {
@@ -64,7 +72,7 @@ const orderApi = {
       productId: productId,
     };
 
-    await axiosClient.patch(updateOrderUrl, param, {
+    return await axiosClient.patch(updateOrderUrl, param, {
       headers: authHeader(),
     });
   },

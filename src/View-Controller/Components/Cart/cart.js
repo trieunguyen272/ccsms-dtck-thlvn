@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import cartApi from "../../services/cartApi";
+import cartApi from "../../../Model/services/cartApi";
 import Order from "./order";
-import orderApi from "../../services/orderApi";
-import billApi from "../../services/billApi";
+import orderApi from "../../../Model/services/orderApi";
+import billApi from "../../../Model/services/billApi";
 
 export default function Cart() {
   const history = useHistory();
   const [orderList, setOrderList] = useState([]);
+  const [orderBillList, setOrderBillList] = useState([]);
   const [quantityProductOrder, setQuantityProductOrder] = useState();
   const [totalPrice, setTotalPrice] = useState(0);
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -39,7 +40,6 @@ export default function Cart() {
 
         const response = await cartApi.getOrderList();
         setOrderList(response);
-
         calculateTotalPrice(response);
       };
       apiGetOrderList();
@@ -54,9 +54,7 @@ export default function Cart() {
 
   const removeOrder = async (order) => {
     const cartId = localStorage.getItem("cartId");
-    console.log(order.product.id);
     const productId = order.product.id;
-    console.log(productId);
     await orderApi.deleteOrder(cartId, productId);
     const list = orderList.filter((order) => order.product.id !== productId);
     setOrderList(list);
@@ -70,47 +68,71 @@ export default function Cart() {
   };
 
   const incrementOrder = async (order) => {
-    const productId = -1;
     await orderApi.updateQuantityOrder(
       order.cartId,
       order.quantity + 1,
       order.product.id
     );
-    const list = orderList.filter((order) => order.product.id !== productId);
-    setOrderList(list);
-    list.map((order) => {
-      const price = order.product.price * order.quantity;
-      totalPriceTemp += price;
-    });
-    setTotalPrice(totalPriceTemp);
-    console.log("da tang", orderList);
+
+    const response = await cartApi.getOrderList();
+    setOrderList(response);
+    calculateTotalPrice(response);
+  };
+
+  const decrementOrder = async (order) => {
+    const quantity = order.quantity - 1;
+
+    if (quantity >= 1) {
+      await orderApi.updateQuantityOrder(
+        order.cartId,
+        quantity,
+        order.product.id
+      );
+
+      const response = await cartApi.getOrderList();
+      setOrderList(response);
+      calculateTotalPrice(response);
+    }
   };
 
   const calculateTotalPrice = (orderList) => {
+    const orderBillTemp = [];
     if (orderList.length > 0) {
       orderList.map((order) => {
         const price = order.product.price * order.quantity;
         totalPriceTemp += price;
+
+        orderBillTemp.push({
+          quantity: order.quantity,
+          productId: order.product.id,
+          price: price,
+        });
       });
     }
+
     setTotalPrice(totalPriceTemp);
+    setOrderBillList(orderBillTemp);
   };
+
   const handleAddBillClick = async () => {
-    const cartId = localStorage.getItem("cartId");
+    if (userData && userData.access_token) {
+      const userId = userData.user_id;
+      const cartId = localStorage.getItem("cartId");
 
-    const responseOrder = await billApi.getByCartId(cartId);
+      await billApi.addBill(userId, orderBillList);
 
-    // const response = await cartApi.addCart(userId);
-    //localStorage.setItem("orderId", response.id);
+      if (orderList.length > 0) {
+        for (let i = 0; i < orderList.length; i++) {
+          await orderApi.deleteOrder(cartId, orderList[i].product.id);
+        }
+      }
 
-    const orderId = responseOrder[0].id;
-    localStorage.setItem("orderId", orderId);
+      const response = await cartApi.getOrderList();
+      setOrderList(response);
+      calculateTotalPrice(response);
 
-    orderId = localStorage.getItem("orderId");
-    // console.log("order", orderId);
-    await billApi.addBill(orderId, Date.now());
-    // const billUrl = `/bill`;
-    // history.push(billUrl);
+      history.push("/bill");
+    }
   };
 
   return (
@@ -136,10 +158,9 @@ export default function Cart() {
                     <Order
                       key={order.id}
                       order={order}
-                      onValueQuantity={quantityOrder}
                       onIncrementClick={incrementOrder}
+                      onDecrementClick={decrementOrder}
                       onRemoveClick={removeOrder}
-                      handleQuantityChange={quantityChange}
                     />
                   ))}
 
@@ -172,12 +193,6 @@ export default function Cart() {
                         Đặt hàng
                       </button>
                     </td>
-                    {/* <td>
-                      <button type="button" className="btn btn-success">
-                        Checkout{" "}
-                        <span className="glyphicon glyphicon-play"></span>
-                      </button>
-                    </td> */}
                   </tr>
                 </tbody>
               </table>

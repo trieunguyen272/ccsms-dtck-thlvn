@@ -4,7 +4,7 @@ import { NavDropdown } from "react-bootstrap";
 import "./nav.css";
 import { MDBCol, MDBIcon } from "mdbreact";
 import { LinkContainer } from "react-router-bootstrap";
-import categorytApi from "../../services/categoriesApi";
+import categorytApi from "../../../Model/services/categoriesApi";
 import { useHistory } from "react-router-dom";
 import CategoryItem from "../Categories/categoryItem";
 
@@ -44,7 +44,7 @@ function Navbarmenu(props) {
     }, 0);
   };
 
-  const userData = localStorage.getItem("userData");
+  const userData = JSON.parse(localStorage.getItem("userData"));
 
   const handleExitClick = () => {
     localStorage.clear();
@@ -128,43 +128,30 @@ function Navbarmenu(props) {
             )}
 
             {userData ? (
-              <Navbar
-                collapseOnSelect
-                expand="lg"
-                bg="light"
-                variant="info"
-                className="navbar navbar-fixed-top"
+              <NavDropdown
+                className="lbl"
+                title={userData.user_fullname.toUpperCase()}
+                id="collasible-nav-dropdown"
               >
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                  <Nav className="mr-auto" id="menu">
-                    <NavDropdown
-                      className="lbl"
-                      title={userData.user_id}
-                      id="collasible-nav-dropdown"
-                    >
-                      <Nav.Link
-                        eventKey={2}
-                        href="/"
-                        className="lbl"
-                        onClick={handleExitClick}
-                      >
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                        ĐƠN MUA
-                      </Nav.Link>
-                      <Nav.Link
-                        eventKey={2}
-                        href="/"
-                        className="lbl"
-                        onClick={handleExitClick}
-                      >
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                        THOÁT
-                      </Nav.Link>
-                    </NavDropdown>
-                  </Nav>
-                </Navbar.Collapse>
-              </Navbar>
+                <Nav.Link
+                  eventKey={2}
+                  href="/bill"
+                  className="lbl"
+                  style={{ marginLeft: "16px" }}
+                >
+                  <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+                  ĐƠN MUA
+                </Nav.Link>
+                <Nav.Link
+                  eventKey={2}
+                  href="/"
+                  className="lbl"
+                  onClick={handleExitClick}
+                >
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                  THOÁT
+                </Nav.Link>
+              </NavDropdown>
             ) : (
               <Nav.Link href="/login" className="lbl">
                 <i class="fa fa-user" aria-hidden="true"></i>

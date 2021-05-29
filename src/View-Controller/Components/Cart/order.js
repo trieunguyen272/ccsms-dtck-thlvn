@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Button } from "react-bootstrap";
 import { useHistory } from "react-router";
-import orderApi from "../../services/orderApi";
 
 Order.propTypes = {
   order: PropTypes.object,
   handleRemoveClick: PropTypes.func,
-  handleQuantityChange: PropTypes.func,
+  handleIncrement: PropTypes.func,
+  handleDecrement: PropTypes.func,
 };
 
 Order.defaultProps = {
   order: {},
   handleRemoveClick: null,
-  handleQuantityChange: null,
+  handleIncrement: null,
+  handleDecrement: null,
 };
 
 export default function Order(props) {
-  const { order, onRemoveClick, onIncrementClick, onValueQuantity } = props;
+  const { order, onRemoveClick, onIncrementClick, onDecrementClick } = props;
 
   const product = order.product;
   const history = useHistory();
@@ -27,15 +27,12 @@ export default function Order(props) {
     if (onIncrementClick) {
       onIncrementClick(order);
     }
-    // await orderApi.updateQuantityOrder(order.cartId, count + 1, product.id);
   };
 
   const handleDecrement = async () => {
-    // await orderApi.updateQuantityOrder(order.cartId, count - 1, product.id);
-    // setCount((prevCount) => (prevCount > 1 ? prevCount - 1 : (prevCount = 1)));
-  };
-  const valueQuantity = () => {
-    if (onValueQuantity) onValueQuantity(order.quantity);
+    if (onDecrementClick) {
+      onDecrementClick(order);
+    }
   };
 
   const handleRemoveClick = () => {
@@ -46,6 +43,10 @@ export default function Order(props) {
     const detailUrl = `/product-detail/${product.id}`;
     history.push(detailUrl);
   };
+
+  useEffect(() => {
+    setCount(order.quantity);
+  }, [order]);
 
   return (
     <tr className="row" style={{ height: "6rem", width: "1350px" }}>
@@ -70,12 +71,13 @@ export default function Order(props) {
       </td>
       <td className="col-sm-2">
         <div>
-          <Button
+          <button
+            type="button"
             style={{
-              marginLeft: "-8rem",
+              marginLeft: "0rem",
               marginTop: "1rem",
               fontSize: "20px",
-              width: "5px",
+              width: "60px",
               height: "2rem",
               textAlign: "center",
               display: "inline-block",
@@ -84,27 +86,27 @@ export default function Order(props) {
             onClick={handleDecrement}
           >
             -
-          </Button>
+          </button>
 
           <input
             type="quantity"
-            className="form-control"
             style={{
-              marginTop: "-2.4rem",
+              marginTop: "0rem",
+              marginLeft: "0rem",
               textAlign: "center",
               width: "56px",
-              height: "34px",
-              marginLeft: "70px",
+              height: "30px",
             }}
             value={count}
           />
 
-          <Button
+          <button
+            type="button"
             style={{
-              marginLeft: "8rem",
-              marginTop: "-3.1rem",
+              marginLeft: "0rem",
+              marginTop: "0rem",
               fontSize: "20px",
-              width: "5px",
+              width: "60px",
               height: "2rem",
               textAlign: "center",
               display: "inline-block",
@@ -113,7 +115,7 @@ export default function Order(props) {
             onClick={handleIncrement}
           >
             +
-          </Button>
+          </button>
         </div>
       </td>
       <td className="col-sm-2">

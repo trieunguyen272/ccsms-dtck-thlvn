@@ -1,7 +1,7 @@
 import React from "react";
-import bank1 from "../../public/image/vietcombank.PNG";
-import bank2 from "../../public/image/techcombank.PNG";
-import bank3 from "../../public/image/eximbank.PNG";
+import bank1 from "../../../public/image/vietcombank.PNG";
+import bank2 from "../../../public/image/techcombank.PNG";
+import bank3 from "../../../public/image/eximbank.PNG";
 import "./pay.css";
 
 function Pay() {

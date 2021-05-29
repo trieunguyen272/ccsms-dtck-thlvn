@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Col, Form, Button, Row } from "react-bootstrap";
-import userApi from "../../services/userApi";
+import userApi from "../../../Model/services/userApi";
 import "./login.css";
 
 function Login() {
   const [validated, setValidated] = useState(false);
-  const [username, setUsername] = useState("");
+  const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
@@ -13,9 +13,9 @@ function Login() {
 
     if (form.checkValidity() === false) {
     }
-    if (username && password) {
+    if (userName && password) {
       const params = {
-        username: username,
+        userName: userName,
         password: password,
       };
 
@@ -35,8 +35,8 @@ function Login() {
   };
 
   const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
+    const userName = e.target.value;
+    setUsername(userName);
   };
 
   const onChangePassword = (e) => {
@@ -74,8 +74,8 @@ function Login() {
               <Form.Control
                 type="text"
                 placeholder="Username"
-                name="username"
-                value={username}
+                name="userName"
+                value={userName}
                 onChange={onChangeUsername}
                 required
               />
