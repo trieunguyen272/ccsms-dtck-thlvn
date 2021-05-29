@@ -55,8 +55,7 @@ function ProductDetail() {
       const cartId = localStorage.getItem("cartId");
       console.log("cart", cartId);
       await orderApi.addOrder(cartId, count, productDetail.id);
-      // const productUrl = `/cart`;
-      // history.push(productUrl);
+      alert("Add cart success");
     } else {
       history.push("/login");
     }
